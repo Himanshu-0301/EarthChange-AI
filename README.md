@@ -1,4 +1,4 @@
-# EarthChange AI
+# EarthChange-AI
 
 **An Agentic Vision-Language Assistant for Multi-Temporal Satellite Change Detection and Analysis**
 
