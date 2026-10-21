@@ -89,6 +89,7 @@ Used for binary change-detection evaluation. Semantic extensions (e.g., DynamicE
 | Repository structure | ✅ Created |
 | Project configuration | ✅ Created |
 | Test suite | ✅ Passing |
+| CVA feasibility experiment | 🟡 Implemented; OSCD evaluation pending imagery |
 | CV pipeline | ⬜ Not started |
 | NLP pipeline | ⬜ Not started |
 | Agent orchestration | ⬜ Not started |
@@ -97,6 +98,21 @@ Used for binary change-detection evaluation. Semantic extensions (e.g., DynamicE
 | Evaluation framework | ⬜ Not started |
 | UI | ⬜ Not started |
 | OSCD data loading | ✅ Implemented and validated with synthetic fixtures |
+
+### CVA Feasibility Experiment
+
+The experimental baseline computes per-pixel spectral change magnitude, applies
+an Otsu threshold, and compares the resulting mask with OSCD labels. It reports
+precision, recall, F1, and IoU for explicitly selected pairs. It does not perform
+registration, normalization, or morphology.
+
+```bash
+python experiments/cv_feasibility.py --root data/raw --pairs beihai rennes
+```
+
+The experiment writes results to `experiments/outputs/cv_feasibility.csv` by
+default. Real OSCD evaluation remains pending until the dataset is placed under
+`data/raw`.
 
 ## Development
 
