@@ -1,6 +1,5 @@
-"""
-LLM interface module.
+"""LLM answer generation from structured evidence."""
 
-Responsible for answer generation from structured evidence.
-Must NOT invent quantitative facts not present in the EvidencePackage.
-"""
+from earthchange.llm.answer_generator import generate_answer
+
+__all__ = ["generate_answer"]

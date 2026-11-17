@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "earthchange"
 version = "0.1.0"
-description = "EarthChange AI – An Agentic Vision-Language Assistant for Multi-Temporal Satellite Change Detection and Analysis"
+description = "EarthChange AI – Language-Guided Satellite Change Analysis Research Prototype"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
@@ -35,6 +35,12 @@ dev = [
     "pytest>=7.4",
     "pytest-cov>=4.1",
     "ruff>=0.1",
+]
+ui = [
+    "streamlit>=1.35",
+]
+nlp-eval = [
+    "scikit-learn>=1.3",
 ]
 
 [tool.setuptools.packages.find]

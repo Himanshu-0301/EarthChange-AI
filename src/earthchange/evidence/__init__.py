@@ -1,6 +1,15 @@
-"""
-Evidence packaging module.
+"""Structured evidence packaging for grounded answer generation."""
 
-Responsible for structuring and packaging tool outputs into EvidencePackages.
-Must NOT interpret evidence or generate answers.
-"""
+from earthchange.evidence.package import (
+    ChangeStatistics,
+    EvidencePackage,
+    RegionStatistics,
+    ToolExecution,
+)
+
+__all__ = [
+    "ChangeStatistics",
+    "EvidencePackage",
+    "RegionStatistics",
+    "ToolExecution",
+]

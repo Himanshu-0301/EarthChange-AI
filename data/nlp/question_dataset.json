@@ -1,0 +1,839 @@
+{
+  "version": 1,
+  "annotation_note": "Manually authored and reviewed bounded-vocabulary examples. Each example references an explicit expected StructuredQuery profile. Question families are assigned to one split only.",
+  "profiles": {
+    "general": {
+      "intent": "GENERAL_CHANGE",
+      "target": "change",
+      "region": "full_image",
+      "operation": "describe",
+      "metrics": [
+        "change_presence"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "pixel_level_only"
+      ],
+      "decomposition": [
+        "detect_change",
+        "summarize_change"
+      ]
+    },
+    "percent": {
+      "intent": "CHANGE_QUANTIFICATION",
+      "target": "change",
+      "region": "full_image",
+      "operation": "percentage",
+      "metrics": [
+        "changed_percentage"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "pixel_level_only"
+      ],
+      "decomposition": [
+        "detect_change",
+        "calculate_metric"
+      ]
+    },
+    "pixel_count": {
+      "intent": "CHANGE_QUANTIFICATION",
+      "target": "change",
+      "region": "full_image",
+      "operation": "count",
+      "metrics": [
+        "changed_pixel_count"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "pixel_level_only"
+      ],
+      "decomposition": [
+        "detect_change",
+        "calculate_metric"
+      ]
+    },
+    "area": {
+      "intent": "CHANGE_QUANTIFICATION",
+      "target": "change",
+      "region": "full_image",
+      "operation": "area",
+      "metrics": [
+        "changed_area"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "pixel_level_only",
+        "pixel_resolution_required"
+      ],
+      "decomposition": [
+        "detect_change",
+        "calculate_metric"
+      ]
+    },
+    "top_percent": {
+      "intent": "CHANGE_QUANTIFICATION",
+      "target": "change",
+      "region": "top",
+      "operation": "percentage",
+      "metrics": [
+        "regional_change_percentage"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "pixel_level_only",
+        "image_region_only"
+      ],
+      "decomposition": [
+        "detect_change",
+        "analyze_regions",
+        "calculate_metric"
+      ]
+    },
+    "local_full": {
+      "intent": "CHANGE_LOCALIZATION",
+      "target": "change",
+      "region": "full_image",
+      "operation": "locate",
+      "metrics": [
+        "regional_distribution"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "pixel_level_only",
+        "image_region_only"
+      ],
+      "decomposition": [
+        "detect_change",
+        "analyze_regions"
+      ]
+    },
+    "local_upper_left": {
+      "intent": "CHANGE_LOCALIZATION",
+      "target": "change",
+      "region": "upper_left",
+      "operation": "locate",
+      "metrics": [
+        "regional_distribution"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "pixel_level_only",
+        "image_region_only"
+      ],
+      "decomposition": [
+        "detect_change",
+        "analyze_regions"
+      ]
+    },
+    "local_center": {
+      "intent": "CHANGE_LOCALIZATION",
+      "target": "change",
+      "region": "center",
+      "operation": "locate",
+      "metrics": [
+        "regional_distribution"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "pixel_level_only",
+        "image_region_only"
+      ],
+      "decomposition": [
+        "detect_change",
+        "analyze_regions"
+      ]
+    },
+    "compare_lr": {
+      "intent": "REGIONAL_COMPARISON",
+      "target": "change",
+      "region": "full_image",
+      "operation": "compare",
+      "metrics": [
+        "regional_distribution"
+      ],
+      "comparison_targets": [
+        "left",
+        "right"
+      ],
+      "constraints": [
+        "pixel_level_only",
+        "image_region_only"
+      ],
+      "decomposition": [
+        "detect_change",
+        "analyze_regions",
+        "compare_regions"
+      ]
+    },
+    "compare_tb": {
+      "intent": "REGIONAL_COMPARISON",
+      "target": "change",
+      "region": "full_image",
+      "operation": "compare",
+      "metrics": [
+        "regional_distribution"
+      ],
+      "comparison_targets": [
+        "top",
+        "bottom"
+      ],
+      "constraints": [
+        "pixel_level_only",
+        "image_region_only"
+      ],
+      "decomposition": [
+        "detect_change",
+        "analyze_regions",
+        "compare_regions"
+      ]
+    },
+    "compare_corners": {
+      "intent": "REGIONAL_COMPARISON",
+      "target": "change",
+      "region": "full_image",
+      "operation": "compare",
+      "metrics": [
+        "regional_distribution"
+      ],
+      "comparison_targets": [
+        "upper_left",
+        "lower_right"
+      ],
+      "constraints": [
+        "pixel_level_only",
+        "image_region_only"
+      ],
+      "decomposition": [
+        "detect_change",
+        "analyze_regions",
+        "compare_regions"
+      ]
+    },
+    "multi_amount_where": {
+      "intent": "MULTI_STEP_ANALYSIS",
+      "target": "change",
+      "region": "full_image",
+      "operation": "percentage",
+      "metrics": [
+        "changed_percentage",
+        "regional_distribution"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "pixel_level_only",
+        "image_region_only"
+      ],
+      "decomposition": [
+        "detect_change",
+        "analyze_regions",
+        "calculate_metric"
+      ]
+    },
+    "multi_rank": {
+      "intent": "MULTI_STEP_ANALYSIS",
+      "target": "change",
+      "region": "full_image",
+      "operation": "percentage",
+      "metrics": [
+        "highest_change_region",
+        "regional_change_percentage"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "pixel_level_only",
+        "image_region_only"
+      ],
+      "decomposition": [
+        "detect_change",
+        "analyze_regions",
+        "compare_regions",
+        "identify_max_region",
+        "calculate_metric"
+      ]
+    },
+    "multi_area": {
+      "intent": "MULTI_STEP_ANALYSIS",
+      "target": "change",
+      "region": "full_image",
+      "operation": "area",
+      "metrics": [
+        "changed_area",
+        "regional_distribution"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "pixel_level_only",
+        "image_region_only",
+        "pixel_resolution_required"
+      ],
+      "decomposition": [
+        "detect_change",
+        "analyze_regions",
+        "calculate_metric"
+      ]
+    },
+    "unsupported_forest": {
+      "intent": "UNSUPPORTED",
+      "target": "forest",
+      "region": "full_image",
+      "operation": "percentage",
+      "metrics": [
+        "semantic_class_change"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "semantic_class_unavailable"
+      ],
+      "decomposition": []
+    },
+    "unsupported_river": {
+      "intent": "UNSUPPORTED",
+      "target": "river",
+      "region": "full_image",
+      "operation": "describe",
+      "metrics": [
+        "semantic_class_change"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "semantic_class_unavailable"
+      ],
+      "decomposition": []
+    },
+    "unsupported_forest_locate": {
+      "intent": "UNSUPPORTED",
+      "target": "forest",
+      "region": "full_image",
+      "operation": "locate",
+      "metrics": [
+        "semantic_class_change"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "semantic_class_unavailable",
+        "image_region_only"
+      ],
+      "decomposition": []
+    },
+    "unsupported_forest_area": {
+      "intent": "UNSUPPORTED",
+      "target": "forest",
+      "region": "full_image",
+      "operation": "area",
+      "metrics": [
+        "semantic_area"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "semantic_class_unavailable"
+      ],
+      "decomposition": []
+    },
+    "unsupported_buildings": {
+      "intent": "UNSUPPORTED",
+      "target": "building",
+      "region": "full_image",
+      "operation": "count",
+      "metrics": [
+        "object_count"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "object_count_unsupported"
+      ],
+      "decomposition": []
+    },
+    "unsupported_house_count": {
+      "intent": "UNSUPPORTED",
+      "target": "house",
+      "region": "full_image",
+      "operation": "count",
+      "metrics": [
+        "object_count"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "object_count_unsupported"
+      ],
+      "decomposition": []
+    },
+    "unsupported_structure_count": {
+      "intent": "UNSUPPORTED",
+      "target": "structure",
+      "region": "full_image",
+      "operation": "count",
+      "metrics": [
+        "object_count"
+      ],
+      "comparison_targets": [],
+      "constraints": [
+        "object_count_unsupported"
+      ],
+      "decomposition": []
+    },
+    "unsupported_offtopic": {
+      "intent": "UNSUPPORTED",
+      "target": "change",
+      "region": "full_image",
+      "operation": "describe",
+      "metrics": [],
+      "comparison_targets": [],
+      "constraints": [
+        "ambiguous_request"
+      ],
+      "decomposition": []
+    },
+    "unsupported_ambiguous": {
+      "intent": "UNSUPPORTED",
+      "target": "change",
+      "region": "full_image",
+      "operation": "describe",
+      "metrics": [],
+      "comparison_targets": [],
+      "constraints": [
+        "ambiguous_request"
+      ],
+      "decomposition": []
+    },
+    "unsupported_ambiguous_compare": {
+      "intent": "UNSUPPORTED",
+      "target": "change",
+      "region": "full_image",
+      "operation": "compare",
+      "metrics": [],
+      "comparison_targets": [],
+      "constraints": [
+        "ambiguous_request"
+      ],
+      "decomposition": []
+    },
+    "unsupported_ambiguous_count": {
+      "intent": "UNSUPPORTED",
+      "target": "change",
+      "region": "full_image",
+      "operation": "count",
+      "metrics": [],
+      "comparison_targets": [],
+      "constraints": [
+        "ambiguous_request",
+        "pixel_level_only"
+      ],
+      "decomposition": []
+    },
+    "compare_lr_rank": {
+      "intent": "REGIONAL_COMPARISON",
+      "target": "change",
+      "region": "full_image",
+      "operation": "compare",
+      "metrics": [
+        "highest_change_region",
+        "regional_distribution"
+      ],
+      "comparison_targets": [
+        "left",
+        "right"
+      ],
+      "constraints": [
+        "pixel_level_only",
+        "image_region_only"
+      ],
+      "decomposition": [
+        "detect_change",
+        "analyze_regions",
+        "compare_regions",
+        "identify_max_region"
+      ]
+    },
+    "compare_other_corners": {
+      "intent": "REGIONAL_COMPARISON",
+      "target": "change",
+      "region": "full_image",
+      "operation": "compare",
+      "metrics": [
+        "regional_distribution"
+      ],
+      "comparison_targets": [
+        "upper_right",
+        "lower_left"
+      ],
+      "constraints": [
+        "pixel_level_only",
+        "image_region_only"
+      ],
+      "decomposition": [
+        "detect_change",
+        "analyze_regions",
+        "compare_regions"
+      ]
+    }
+  },
+  "splits": {
+    "train": [
+      {
+        "id": "g01",
+        "profile": "general",
+        "question": "Is there any visible change between the two captures?"
+      },
+      {
+        "id": "g02",
+        "profile": "general",
+        "question": "Describe what changed across these satellite dates."
+      },
+      {
+        "id": "g03",
+        "profile": "general",
+        "question": "Do the scenes differ over time?"
+      },
+      {
+        "id": "g04",
+        "profile": "general",
+        "question": "Summarize the overall change in the image pair."
+      },
+      {
+        "id": "g05",
+        "profile": "general",
+        "question": "Has anything changed in this area?"
+      },
+      {
+        "id": "g06",
+        "profile": "general",
+        "question": "Show whether the landscape changed between acquisitions."
+      },
+      {
+        "id": "q01",
+        "profile": "percent",
+        "question": "What percentage of the full image changed?"
+      },
+      {
+        "id": "q02",
+        "profile": "percent",
+        "question": "How much of the scene is different?"
+      },
+      {
+        "id": "q03",
+        "profile": "pixel_count",
+        "question": "How many pixels changed between dates?"
+      },
+      {
+        "id": "q04",
+        "profile": "pixel_count",
+        "question": "Count the pixels flagged as changed."
+      },
+      {
+        "id": "q05",
+        "profile": "area",
+        "question": "Estimate the total changed area in square metres."
+      },
+      {
+        "id": "q06",
+        "profile": "top_percent",
+        "question": "What share of the top half has changed?"
+      },
+      {
+        "id": "l01",
+        "profile": "local_full",
+        "question": "Where did changes occur in the image?"
+      },
+      {
+        "id": "l02",
+        "profile": "local_full",
+        "question": "Locate the areas with visible differences."
+      },
+      {
+        "id": "l03",
+        "profile": "local_upper_left",
+        "question": "Which changes appear in the upper-left corner?"
+      },
+      {
+        "id": "l04",
+        "profile": "local_upper_left",
+        "question": "Show me where the top left changed."
+      },
+      {
+        "id": "l05",
+        "profile": "local_center",
+        "question": "Has the center of the scene changed?"
+      },
+      {
+        "id": "l06",
+        "profile": "local_full",
+        "question": "Identify the regions where pixels differ."
+      },
+      {
+        "id": "c01",
+        "profile": "compare_lr",
+        "question": "Compare the left side against the right side."
+      },
+      {
+        "id": "c02",
+        "profile": "compare_lr",
+        "question": "How does change differ between left and right?"
+      },
+      {
+        "id": "c03",
+        "profile": "compare_tb",
+        "question": "Compare the top and bottom halves."
+      },
+      {
+        "id": "c04",
+        "profile": "compare_tb",
+        "question": "Show the difference between northern and southern regions."
+      },
+      {
+        "id": "c05",
+        "profile": "compare_corners",
+        "question": "Compare the upper-left with the lower-right."
+      },
+      {
+        "id": "c06",
+        "profile": "compare_lr_rank",
+        "question": "Which side differs more, west or east?"
+      },
+      {
+        "id": "m01",
+        "profile": "multi_amount_where",
+        "question": "How much changed, and where did it happen?"
+      },
+      {
+        "id": "m02",
+        "profile": "multi_amount_where",
+        "question": "Report the change percentage and its location."
+      },
+      {
+        "id": "m03",
+        "profile": "multi_rank",
+        "question": "Find the region with the most change and calculate its percentage."
+      },
+      {
+        "id": "m04",
+        "profile": "multi_rank",
+        "question": "Rank image regions by change, then give the highest region's share."
+      },
+      {
+        "id": "m05",
+        "profile": "multi_area",
+        "question": "Locate the changed area and estimate its total area."
+      },
+      {
+        "id": "m06",
+        "profile": "multi_amount_where",
+        "question": "Tell me how much of the image changed and which parts were affected."
+      },
+      {
+        "id": "u01",
+        "profile": "unsupported_forest",
+        "question": "How much forest was lost between these dates?"
+      },
+      {
+        "id": "u02",
+        "profile": "unsupported_river",
+        "question": "Did the river change course?"
+      },
+      {
+        "id": "u03",
+        "profile": "unsupported_buildings",
+        "question": "How many individual buildings were destroyed?"
+      },
+      {
+        "id": "u04",
+        "profile": "unsupported_house_count",
+        "question": "Count the houses that disappeared."
+      },
+      {
+        "id": "u05",
+        "profile": "unsupported_offtopic",
+        "question": "What will the weather be tomorrow?"
+      },
+      {
+        "id": "u06",
+        "profile": "unsupported_ambiguous_compare",
+        "question": "Compare them."
+      }
+    ],
+    "validation": [
+      {
+        "id": "g07",
+        "profile": "general",
+        "question": "Were there any differences between the before and after images?"
+      },
+      {
+        "id": "g08",
+        "profile": "general",
+        "question": "Tell me whether the scene was transformed."
+      },
+      {
+        "id": "g09",
+        "profile": "general",
+        "question": "Give an overview of change across the pair."
+      },
+      {
+        "id": "q07",
+        "profile": "percent",
+        "question": "What fraction of the image is different?"
+      },
+      {
+        "id": "q08",
+        "profile": "pixel_count",
+        "question": "Give the number of pixels marked as changed."
+      },
+      {
+        "id": "q09",
+        "profile": "area",
+        "question": "How large is the changed area in square meters?"
+      },
+      {
+        "id": "l07",
+        "profile": "local_full",
+        "question": "Which parts of the scene show change?"
+      },
+      {
+        "id": "l08",
+        "profile": "local_upper_left",
+        "question": "Locate the change in the north-west corner."
+      },
+      {
+        "id": "l09",
+        "profile": "local_center",
+        "question": "Show the changes around the middle of the image."
+      },
+      {
+        "id": "c07",
+        "profile": "compare_lr",
+        "question": "What is the difference between west and east?"
+      },
+      {
+        "id": "c08",
+        "profile": "compare_tb",
+        "question": "Contrast the bottom with the top region."
+      },
+      {
+        "id": "c09",
+        "profile": "compare_other_corners",
+        "question": "Compare the north-east and south-west corners."
+      },
+      {
+        "id": "m07",
+        "profile": "multi_amount_where",
+        "question": "Calculate the changed percentage and locate it."
+      },
+      {
+        "id": "m08",
+        "profile": "multi_rank",
+        "question": "Identify the region with greatest change and report its percentage."
+      },
+      {
+        "id": "m09",
+        "profile": "multi_area",
+        "question": "Find where change happened and calculate its area."
+      },
+      {
+        "id": "u07",
+        "profile": "unsupported_forest_locate",
+        "question": "Which forest areas were cleared?"
+      },
+      {
+        "id": "u08",
+        "profile": "unsupported_buildings",
+        "question": "How many buildings changed individually?"
+      },
+      {
+        "id": "u09",
+        "profile": "unsupported_offtopic",
+        "question": "Predict next year's land cover."
+      }
+    ],
+    "test": [
+      {
+        "id": "g10",
+        "profile": "general",
+        "question": "Did the landscape look different on the later date?"
+      },
+      {
+        "id": "g11",
+        "profile": "general",
+        "question": "Describe the scene's overall change."
+      },
+      {
+        "id": "g12",
+        "profile": "general",
+        "question": "Was this landscape unchanged between captures?"
+      },
+      {
+        "id": "q10",
+        "profile": "percent",
+        "question": "Measure the proportion of pixels that changed."
+      },
+      {
+        "id": "q11",
+        "profile": "pixel_count",
+        "question": "How many image pixels show a difference?"
+      },
+      {
+        "id": "q12",
+        "profile": "top_percent",
+        "question": "What percentage changed in the upper half?"
+      },
+      {
+        "id": "l10",
+        "profile": "local_full",
+        "question": "Map the locations where the captures differ."
+      },
+      {
+        "id": "l11",
+        "profile": "local_upper_left",
+        "question": "What changed in the top-left part?"
+      },
+      {
+        "id": "l12",
+        "profile": "local_center",
+        "question": "Where are the changes near the center?"
+      },
+      {
+        "id": "c10",
+        "profile": "compare_lr_rank",
+        "question": "Which has more flagged change, the left or right?"
+      },
+      {
+        "id": "c11",
+        "profile": "compare_tb",
+        "question": "Show how the upper and lower halves differ."
+      },
+      {
+        "id": "c12",
+        "profile": "compare_other_corners",
+        "question": "Compare the upper right and lower left corners."
+      },
+      {
+        "id": "m10",
+        "profile": "multi_amount_where",
+        "question": "Show where the changes are and how much of the image they cover."
+      },
+      {
+        "id": "m11",
+        "profile": "multi_rank",
+        "question": "Find the most affected region and calculate what percent changed there."
+      },
+      {
+        "id": "m12",
+        "profile": "multi_area",
+        "question": "First locate the changes, then calculate the total changed area."
+      },
+      {
+        "id": "u11",
+        "profile": "unsupported_forest_area",
+        "question": "How many hectares of forest disappeared?"
+      },
+      {
+        "id": "u12",
+        "profile": "unsupported_structure_count",
+        "question": "Count individual structures that were removed."
+      },
+      {
+        "id": "u14",
+        "profile": "unsupported_ambiguous_count",
+        "question": "Count the changes."
+      }
+    ]
+  }
+}

@@ -1,0 +1,227 @@
+{
+  "dataset": {
+    "path": "D:\\Earth ChangeAi\\data\\nlp\\question_dataset.json",
+    "version": 1,
+    "total_examples": 72,
+    "split_sizes": {
+      "train": 36,
+      "validation": 18,
+      "test": 18
+    },
+    "class_counts": {
+      "train": {
+        "CHANGE_LOCALIZATION": 6,
+        "CHANGE_QUANTIFICATION": 6,
+        "GENERAL_CHANGE": 6,
+        "MULTI_STEP_ANALYSIS": 6,
+        "REGIONAL_COMPARISON": 6,
+        "UNSUPPORTED": 6
+      },
+      "validation": {
+        "CHANGE_LOCALIZATION": 3,
+        "CHANGE_QUANTIFICATION": 3,
+        "GENERAL_CHANGE": 3,
+        "MULTI_STEP_ANALYSIS": 3,
+        "REGIONAL_COMPARISON": 3,
+        "UNSUPPORTED": 3
+      },
+      "test": {
+        "CHANGE_LOCALIZATION": 3,
+        "CHANGE_QUANTIFICATION": 3,
+        "GENERAL_CHANGE": 3,
+        "MULTI_STEP_ANALYSIS": 3,
+        "REGIONAL_COMPARISON": 3,
+        "UNSUPPORTED": 3
+      }
+    },
+    "note": "Small curated research set; metrics are descriptive and not a generalization claim."
+  },
+  "test": {
+    "examples": 18,
+    "rule_parser_intent": {
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "unsupported_precision": 1.0,
+      "unsupported_recall": 1.0,
+      "unsupported_f1": 1.0
+    },
+    "tfidf_logistic_intent": {
+      "accuracy": 0.7777777777777778,
+      "macro_f1": 0.7869047619047619,
+      "unsupported_precision": 1.0,
+      "unsupported_recall": 0.6666666666666666,
+      "unsupported_f1": 0.8
+    },
+    "rule_parser_parameter_extraction": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "exact_query_parameter_match": 1.0,
+      "examples": 18,
+      "true_positive_slots": 151,
+      "false_positive_slots": 0,
+      "false_negative_slots": 0
+    },
+    "multi_step_decomposition_exact_match": {
+      "correct": 3,
+      "total": 3,
+      "accuracy": 1.0
+    }
+  },
+  "classifier_selection": {
+    "method": "validation macro F1",
+    "selected_c": 0.25,
+    "selected_ngram_range": [
+      1,
+      1
+    ],
+    "validation_macro_f1": 0.942857142857143,
+    "trained_on": "train + validation only after model selection"
+  },
+  "test_predictions": [
+    {
+      "id": "g10",
+      "question": "Did the landscape look different on the later date?",
+      "expected_intent": "GENERAL_CHANGE",
+      "rule_intent": "GENERAL_CHANGE",
+      "tfidf_logistic_intent": "CHANGE_QUANTIFICATION",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "g11",
+      "question": "Describe the scene's overall change.",
+      "expected_intent": "GENERAL_CHANGE",
+      "rule_intent": "GENERAL_CHANGE",
+      "tfidf_logistic_intent": "GENERAL_CHANGE",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "g12",
+      "question": "Was this landscape unchanged between captures?",
+      "expected_intent": "GENERAL_CHANGE",
+      "rule_intent": "GENERAL_CHANGE",
+      "tfidf_logistic_intent": "GENERAL_CHANGE",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "q10",
+      "question": "Measure the proportion of pixels that changed.",
+      "expected_intent": "CHANGE_QUANTIFICATION",
+      "rule_intent": "CHANGE_QUANTIFICATION",
+      "tfidf_logistic_intent": "CHANGE_QUANTIFICATION",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "q11",
+      "question": "How many image pixels show a difference?",
+      "expected_intent": "CHANGE_QUANTIFICATION",
+      "rule_intent": "CHANGE_QUANTIFICATION",
+      "tfidf_logistic_intent": "CHANGE_QUANTIFICATION",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "q12",
+      "question": "What percentage changed in the upper half?",
+      "expected_intent": "CHANGE_QUANTIFICATION",
+      "rule_intent": "CHANGE_QUANTIFICATION",
+      "tfidf_logistic_intent": "CHANGE_QUANTIFICATION",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "l10",
+      "question": "Map the locations where the captures differ.",
+      "expected_intent": "CHANGE_LOCALIZATION",
+      "rule_intent": "CHANGE_LOCALIZATION",
+      "tfidf_logistic_intent": "CHANGE_LOCALIZATION",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "l11",
+      "question": "What changed in the top-left part?",
+      "expected_intent": "CHANGE_LOCALIZATION",
+      "rule_intent": "CHANGE_LOCALIZATION",
+      "tfidf_logistic_intent": "CHANGE_QUANTIFICATION",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "l12",
+      "question": "Where are the changes near the center?",
+      "expected_intent": "CHANGE_LOCALIZATION",
+      "rule_intent": "CHANGE_LOCALIZATION",
+      "tfidf_logistic_intent": "CHANGE_LOCALIZATION",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "c10",
+      "question": "Which has more flagged change, the left or right?",
+      "expected_intent": "REGIONAL_COMPARISON",
+      "rule_intent": "REGIONAL_COMPARISON",
+      "tfidf_logistic_intent": "REGIONAL_COMPARISON",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "c11",
+      "question": "Show how the upper and lower halves differ.",
+      "expected_intent": "REGIONAL_COMPARISON",
+      "rule_intent": "REGIONAL_COMPARISON",
+      "tfidf_logistic_intent": "REGIONAL_COMPARISON",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "c12",
+      "question": "Compare the upper right and lower left corners.",
+      "expected_intent": "REGIONAL_COMPARISON",
+      "rule_intent": "REGIONAL_COMPARISON",
+      "tfidf_logistic_intent": "REGIONAL_COMPARISON",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "m10",
+      "question": "Show where the changes are and how much of the image they cover.",
+      "expected_intent": "MULTI_STEP_ANALYSIS",
+      "rule_intent": "MULTI_STEP_ANALYSIS",
+      "tfidf_logistic_intent": "CHANGE_LOCALIZATION",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "m11",
+      "question": "Find the most affected region and calculate what percent changed there.",
+      "expected_intent": "MULTI_STEP_ANALYSIS",
+      "rule_intent": "MULTI_STEP_ANALYSIS",
+      "tfidf_logistic_intent": "MULTI_STEP_ANALYSIS",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "m12",
+      "question": "First locate the changes, then calculate the total changed area.",
+      "expected_intent": "MULTI_STEP_ANALYSIS",
+      "rule_intent": "MULTI_STEP_ANALYSIS",
+      "tfidf_logistic_intent": "MULTI_STEP_ANALYSIS",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "u11",
+      "question": "How many hectares of forest disappeared?",
+      "expected_intent": "UNSUPPORTED",
+      "rule_intent": "UNSUPPORTED",
+      "tfidf_logistic_intent": "UNSUPPORTED",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "u12",
+      "question": "Count individual structures that were removed.",
+      "expected_intent": "UNSUPPORTED",
+      "rule_intent": "UNSUPPORTED",
+      "tfidf_logistic_intent": "UNSUPPORTED",
+      "rule_parameters_match": true
+    },
+    {
+      "id": "u14",
+      "question": "Count the changes.",
+      "expected_intent": "UNSUPPORTED",
+      "rule_intent": "UNSUPPORTED",
+      "tfidf_logistic_intent": "CHANGE_LOCALIZATION",
+      "rule_parameters_match": true
+    }
+  ]
+}

@@ -37,6 +37,8 @@ data/processed/*
 # Experiment outputs
 experiments/*/outputs/
 experiments/*/checkpoints/
+experiments/outputs/demo/
+runs/
 
 # Environment variables
 .env

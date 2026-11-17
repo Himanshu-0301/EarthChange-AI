@@ -1,6 +1,6 @@
 # EarthChange-AI
 
-**An Agentic Vision-Language Assistant for Multi-Temporal Satellite Change Detection and Analysis**
+**Language-Guided Satellite Change Analysis**
 
 ---
 
@@ -12,11 +12,11 @@ This is a hypothesis to test, **not** an assumed conclusion.
 
 ## Project Purpose
 
-EarthChange AI is a language-driven, tool-augmented system for answering natural-language questions about one or two satellite images. It bridges computer vision and natural language processing through an agentic architecture where:
+EarthChange AI is a research prototype that turns natural-language questions about a pair of satellite images into a structured, tool-backed analysis request. Its current language component is a deterministic local parser with answer templates; it does not use an LLM or a vision-language model. The pipeline separates:
 
-- **Vision detects.** Computer vision tools perform visual measurement.
-- **Language understands and reasons.** NLP components interpret natural language.
-- **The agent decides what evidence is needed.** An orchestration layer selects and sequences tools.
+- **Language extracts.** NLP classifies the request and extracts its target, operation, and image region.
+- **The planner routes.** The agent selects a fixed sequence of registered tools from the structured request.
+- **Vision measures.** Computer vision produces the pixel-level change evidence.
 
 The language model must never invent quantitative visual measurements. All quantitative claims are grounded in evidence produced by CV tools.
 
@@ -24,7 +24,7 @@ The language model must never invent quantitative visual measurements. All quant
 
 ```
 User Question
-  → NLP Understanding (intent classification, parameter extraction)
+  → NLP Parsing (intent, target, operation, region)
   → Structured Query
   → Agentic Planning (tool selection and sequencing)
   → Selected CV Tools (change detection, region analysis, etc.)
@@ -45,19 +45,18 @@ User Question
 
 ## Current MVP Scope
 
-### Capabilities (Planned)
+### Implemented Capabilities
 
-1. Before/after satellite image input
-2. Image preprocessing
-3. Change detection (CVA + thresholding — provisional)
-4. Change-mask visualization
-5. Quantitative change calculation
-6. Natural-language questions
-7. Intent classification
-8. Parameter extraction
-9. Tool routing
-10. Evidence-grounded answer generation
-11. Clean interactive UI
+1. Before/after image input through the local dashboard
+2. CVA change detection with Otsu thresholding
+3. Change-mask and magnitude visualization
+4. Pixel-level quantification and optional physical area from a supplied pixel size or projected GeoTIFF metadata
+5. Structured intent, target, operation, region, metric, and constraint extraction
+6. Bounded multi-step decomposition for supported compound questions
+7. A rule-based baseline and an independently evaluated TF-IDF + Logistic Regression alternative
+8. Evidence-grounded answers and per-tool execution records
+9. Regional analysis and comparison for image quadrants (not map coordinates)
+10. JavaScript dashboard served locally by the Python backend
 
 ### Supported Intent Families
 
@@ -88,16 +87,27 @@ Used for binary change-detection evaluation. Semantic extensions (e.g., DynamicE
 |-----------|--------|
 | Repository structure | ✅ Created |
 | Project configuration | ✅ Created |
-| Test suite | ✅ Passing |
-| CVA feasibility experiment | 🟡 Implemented; OSCD evaluation pending imagery |
-| CV pipeline | ⬜ Not started |
-| NLP pipeline | ⬜ Not started |
-| Agent orchestration | ⬜ Not started |
-| Evidence packaging | ⬜ Not started |
-| LLM integration | ⬜ Not started |
-| Evaluation framework | ⬜ Not started |
-| UI | ⬜ Not started |
-| OSCD data loading | ✅ Implemented and validated with synthetic fixtures |
+| Test suite | 88 passed; 6 non-blocking rasterio deprecation warnings |
+| CVA feasibility experiment | Implemented; real OSCD evaluation pending imagery |
+| CV pipeline | Implemented; CVA remains provisional pending benchmark results |
+| NLP rule parser | Implemented; evaluated against a held-out curated question set |
+| TF-IDF intent classifier | Optional experimental baseline; lower held-out score, not used for routing |
+| Agent orchestration | Implemented with a fixed registered-tool plan |
+| Evidence packaging | Implemented, including completed and failed tool records |
+| Answer generation | Implemented with deterministic evidence-grounded templates |
+| Evaluation framework | Implemented; benchmark results depend on local OSCD data |
+| UI | Implemented as a local JavaScript dashboard |
+| OSCD data loading | Implemented; real dataset evaluation is pending |
+
+Execution plans are checked against the registered tool inputs and parameters.
+The language component is a bounded research parser, not a general-purpose LLM.
+See [NLP design and evaluation](docs/nlp.md) for supported requests, the curated
+dataset, and reproducible model comparisons. The dashboard exposes tool-by-tool outcomes and regional statistics. GeoTIFF
+pairs must have matching dimensions, CRS, and affine alignment; nodata pixels
+are not supported yet. Physical area is shown only when pixel dimensions in
+metres are known. The CVA output measures spectral pixel differences, not
+semantic classes such as forest or water. It is a research prototype, not a
+validated land-cover product.
 
 ### CVA Feasibility Experiment
 
@@ -115,6 +125,23 @@ default. Real OSCD evaluation remains pending until the dataset is placed under
 `data/raw`.
 
 ## Development
+
+### Dashboard
+
+Launch the local JavaScript dashboard on Windows by double-clicking
+`run_dashboard.bat`, or from PowerShell:
+
+```powershell
+cd "D:\Earth ChangeAi"
+& ".\.venv\Scripts\python.exe" ".\app\server.py"
+```
+
+Then open `http://127.0.0.1:8765`. The dashboard accepts matching PNG, JPEG,
+and GeoTIFF pairs and sends them to the existing EarthChange analysis pipeline.
+Choose **Load OSCD sample** to use a bundled Sentinel-2 pair (2015 and 2017).
+Its RGB preview files and CC BY-NC-SA 4.0 attribution are in
+`data/samples/oscd100/README.md`.
+Stop the local server with Ctrl+C in its terminal window.
 
 ### Setup
 

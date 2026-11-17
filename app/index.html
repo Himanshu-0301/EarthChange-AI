@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#17231d"><title>EarthChange — Image Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar"><a class="wordmark" href="/" aria-label="EarthChange home"><span class="mark">E</span> earthchange <span class="product">/ ANALYSIS</span></a><div class="status"><i></i> LOCAL WORKSPACE</div></header>
+  <main>
+    <section class="intro"><h1>Ask a question about change over time.</h1><p>EarthChange AI reads the request, selects the relevant analysis, and grounds its answer in the image pair.</p></section>
+    <form id="analysis-form">
+      <section class="question-panel panel">
+        <div class="question-compose"><div class="question-copy"><h2>What do you want to know?</h2><p>Ask about the amount, location, or comparison of change in plain language.</p></div>
+          <label class="question-field" for="question-input"><span class="sr-only">Your question</span><textarea id="question-input" name="question" rows="2" maxlength="1000">How much changed, and where?</textarea></label>
+        </div>
+        <section class="interpretation" id="interpretation" aria-live="polite" aria-busy="true">
+          <div class="interpretation-head"><div><h3>How the system reads your question</h3><p id="interpret-status">Parsing the request…</p></div><span class="parser-badge">LOCAL · RULE-BASED NLP</span></div>
+          <div class="interpretation-grid">
+            <div><span>Intent</span><strong id="parsed-intent">—</strong></div>
+            <div><span>Operation</span><strong id="parsed-operation">—</strong></div>
+            <div><span>Target</span><strong id="parsed-target">—</strong></div>
+            <div><span>Region</span><strong id="parsed-region">—</strong></div>
+          </div>
+          <div class="plan-preview"><span>Evidence plan</span><ol id="planned-actions"></ol></div>
+          <p class="interpretation-note" id="interpretation-note">This is the language interpretation and proposed tool route. Image analysis starts when you run the request.</p>
+        </section>
+      </section>
+      <section class="controls panel">
+        <div class="section-head"><div><h2>Provide the image pair</h2></div><div class="sample-actions"><span class="format-note">PNG · JPEG · GeoTIFF</span><button class="text-button" id="sample-pair" type="button">Load OSCD sample</button></div></div>
+        <div class="upload-grid">
+          <label class="dropzone" id="before-zone"><span class="capture">EARLIER CAPTURE</span><svg class="upload-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><strong>Before image</strong><small>Drop a file or <u>browse</u></small><input name="before" type="file" accept=".png,.jpg,.jpeg,.tif,.tiff" required></label>
+          <div class="pair-link" aria-hidden="true">COMPARE</div>
+          <label class="dropzone" id="after-zone"><span class="capture">LATER CAPTURE</span><svg class="upload-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><strong>After image</strong><small>Drop a file or <u>browse</u></small><input name="after" type="file" accept=".png,.jpg,.jpeg,.tif,.tiff" required></label>
+        </div>
+        <div class="settings-row"><label class="resolution-field">Pixel size <span>(metres, optional)</span><input name="pixel_size" type="number" min="0" step="0.1" placeholder="Unknown"></label><button id="analyze" type="submit" disabled>Run requested analysis</button></div>
+        <p class="hint">Use the same area, dimensions, and band order for both dates. GeoTIFF alignment is checked; ordinary images need to be aligned before upload.</p>
+        <p class="hint">This demo measures pixel-level spectral differences. It does not identify forest, water, buildings, or other land-cover classes. Area units require a known pixel size or a projected GeoTIFF.</p>
+        <p class="hint">Sample: Sentinel-2 OSCD100 <code>train_000</code>, 1 Aug 2015 → 1 Aug 2017. RGB display composite from bands B04/B03/B02, 256 × 256 px at 10 m; the dashboard uses the pair's supplied pixel size. OSCD100 by hkristen, CC BY-NC-SA 4.0. <a href="https://huggingface.co/datasets/hkristen/oscd100" target="_blank" rel="noopener noreferrer">Dataset and license</a>.</p>
+      </section>
+    </form>
+    <section id="preview" class="preview-grid hidden" aria-live="polite"></section>
+    <section id="loading" class="panel loading hidden"><div class="spinner"></div><div><strong>Measuring image change</strong><p>Comparing aligned pixel values and preparing the evidence.</p></div></section>
+    <section id="error" class="error hidden" role="alert"></section>
+    <section id="results" class="hidden" aria-live="polite">
+      <div class="section-head result-heading"><div><h2>Analysis</h2></div><button class="text-button" id="new-analysis" type="button">New analysis</button></div>
+      <div class="answer panel"><div class="answer-tag">PIXEL CHANGE ESTIMATE</div><p id="answer"></p></div>
+      <p class="hint result-caveat">A flagged pixel indicates a spectral difference under CVA + Otsu. It is not proof of a specific land-cover change, and this demo result is not a benchmark score.</p>
+      <div id="metrics" class="metrics"></div>
+      <div id="region-panel" class="panel hidden"><div class="section-head"><div><h2>Image-region breakdown</h2></div></div><div id="region-metrics" class="metrics"></div></div>
+      <div id="visual-panel" class="panel visual-panel hidden"><div class="section-head"><div><h2>Visual evidence</h2></div><span id="threshold" class="mono"></span></div><img id="visualization" alt="Before and after images, change magnitude, binary change mask, and optional ground truth comparison"></div>
+      <details class="record panel"><summary>Analysis record</summary><div id="record"></div></details>
+    </section>
+    <section id="empty" class="empty-state"><div><h2>Ready for a comparison</h2><p>Choose a real image pair or load the included OSCD sample. Results include the detected pixel mask, regional statistics, and the analysis steps used.</p></div></section>
+  </main>
+  <footer><span>EarthChange AI</span><span>Measurements are produced by the local CV pipeline.</span></footer>
+  <script src="/app.js" defer></script>
+</body>
+</html>
