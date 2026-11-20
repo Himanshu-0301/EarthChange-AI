@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: earthchange-ai
+    runtime: python
+    plan: free
+    buildCommand: pip install .
+    startCommand: python app/server.py
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.11
