@@ -269,6 +269,8 @@ class Handler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    address = ("127.0.0.1", int(os.environ.get("EARTHCHANGE_PORT", "8765")))
-    print(f"EarthChange dashboard: http://{address[0]}:{address[1]}")
+    host = os.environ.get("HOST", "127.0.0.1")
+    port = int(os.environ.get("PORT", os.environ.get("EARTHCHANGE_PORT", "8765")))
+    address = (host, port)
+    print(f"EarthChange dashboard listening on {host}:{port}")
     ThreadingHTTPServer(address, Handler).serve_forever()
