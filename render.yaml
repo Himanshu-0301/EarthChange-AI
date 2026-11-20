@@ -7,5 +7,7 @@ services:
     startCommand: python app/server.py
     healthCheckPath: /api/health
     envVars:
+      - key: HOST
+        value: 0.0.0.0
       - key: PYTHON_VERSION
         value: 3.12.11
